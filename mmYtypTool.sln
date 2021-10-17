@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mmYtypTool", "mmYtypTool\mmYtypTool.csproj", "{AF91BC0A-B377-4927-8CB9-0D2873F00E11}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AF91BC0A-B377-4927-8CB9-0D2873F00E11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF91BC0A-B377-4927-8CB9-0D2873F00E11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF91BC0A-B377-4927-8CB9-0D2873F00E11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF91BC0A-B377-4927-8CB9-0D2873F00E11}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3655F686-6FBB-495B-9AC7-8154C3E3E8CE}
+	EndGlobalSection
+EndGlobal
