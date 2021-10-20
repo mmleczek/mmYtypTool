@@ -132,47 +132,50 @@ namespace OpenYtyp
             {
                 Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
 
-                dlg.Title = "Choose Ydr file to import";
-                dlg.Multiselect = false;
+                dlg.Title = "Choose Ydr files to import";
+                dlg.Multiselect = true;
                 dlg.CheckFileExists = true;
                 dlg.AddExtension = true;
                 dlg.DefaultExt = ".ydr";
                 dlg.Filter = "Ydr file|*.ydr";
 
                 bool? result = dlg.ShowDialog();
-                if (result == true)
+                if (result == true && dlg.FileNames.Length > 0)
                 {
-                    YdrFile fileYdr = new YdrFile();
-                    byte[] file_raw = File.ReadAllBytes(dlg.FileName);
-                    RpfFile.LoadResourceFile<YdrFile>(fileYdr, file_raw, 165);
-                    loadingLb.Text = $"Importing {dlg.SafeFileName}";
-                    fileYdr.Drawable.Name = fileYdr.Drawable.Name.Replace(".#dr", "");
+                    foreach(string path in dlg.FileNames)
+                    {
+                        YdrFile fileYdr = new YdrFile();
+                        byte[] file_raw = File.ReadAllBytes(path);
+                        RpfFile.LoadResourceFile<YdrFile>(fileYdr, file_raw, 165);
+                        loadingLb.Text = $"Importing {dlg.SafeFileName}";
+                        fileYdr.Drawable.Name = fileYdr.Drawable.Name.Replace(".#dr", "");
 
-                    string name_hash = GetProperHash(fileYdr.Drawable.Name).ToString();
+                        string name_hash = GetProperHash(fileYdr.Drawable.Name).ToString();
 
-                    nameTb.Text = name_hash;
-                    assetNameTb.Text = name_hash;
-                    assetTypeCb.Text = "ASSET_TYPE_DRAWABLE";
+                        nameTb.Text = name_hash;
+                        assetNameTb.Text = name_hash;
+                        assetTypeCb.Text = "ASSET_TYPE_DRAWABLE";
 
-                    textureDictTb.Text = fileYdr.Drawable.ShaderGroup.TextureDictionary == null ? "" : fileYdr.Drawable.Name;
-                    physicsDictTb.Text = fileYdr.Drawable.Bound == null ? "" : fileYdr.Drawable.Name;
-                    drawableDictTb.Text = "";
+                        textureDictTb.Text = fileYdr.Drawable.ShaderGroup.TextureDictionary == null ? "" : fileYdr.Drawable.Name;
+                        physicsDictTb.Text = fileYdr.Drawable.Bound == null ? "" : fileYdr.Drawable.Name;
+                        drawableDictTb.Text = "";
 
-                    specialAttributeCb.SelectedIndex = 0;
-                    flagsTb.Text = "32";
+                        specialAttributeCb.SelectedIndex = 0;
+                        flagsTb.Text = "32";
 
-                    hdTextureDistTb.Text = "60.0";
-                    lodDistTb.Text = "60.0";
+                        hdTextureDistTb.Text = "60.0";
+                        lodDistTb.Text = "60.0";
 
-                    bbMinTb.Text = $"{(decimal)fileYdr.Drawable.BoundingBoxMin.X}, {(decimal)fileYdr.Drawable.BoundingBoxMin.Y}, {(decimal)fileYdr.Drawable.BoundingBoxMin.Z}";
-                    bbMaxTb.Text = $"{(decimal)fileYdr.Drawable.BoundingBoxMax.X}, {(decimal)fileYdr.Drawable.BoundingBoxMax.Y}, {(decimal)fileYdr.Drawable.BoundingBoxMax.Z}";
-                    bsCentreTb.Text = $"{(decimal)fileYdr.Drawable.BoundingCenter.X}, {(decimal)fileYdr.Drawable.BoundingCenter.Y}, {(decimal)fileYdr.Drawable.BoundingCenter.Z}";
-                    bsRadiusTb.Text = fileYdr.Drawable.BoundingSphereRadius.ToString();
+                        bbMinTb.Text = $"{(decimal)fileYdr.Drawable.BoundingBoxMin.X}, {(decimal)fileYdr.Drawable.BoundingBoxMin.Y}, {(decimal)fileYdr.Drawable.BoundingBoxMin.Z}";
+                        bbMaxTb.Text = $"{(decimal)fileYdr.Drawable.BoundingBoxMax.X}, {(decimal)fileYdr.Drawable.BoundingBoxMax.Y}, {(decimal)fileYdr.Drawable.BoundingBoxMax.Z}";
+                        bsCentreTb.Text = $"{(decimal)fileYdr.Drawable.BoundingCenter.X}, {(decimal)fileYdr.Drawable.BoundingCenter.Y}, {(decimal)fileYdr.Drawable.BoundingCenter.Z}";
+                        bsRadiusTb.Text = fileYdr.Drawable.BoundingSphereRadius.ToString();
 
-                    loadingLb.Text = $"Imported {dlg.SafeFileName}";
-                    currFileLb.Text = dlg.SafeFileName;
+                        loadingLb.Text = $"Imported {dlg.SafeFileName}";
+                        currFileLb.Text = dlg.SafeFileName;
 
-                    addArchetypeFromForms();
+                        addArchetypeFromForms();
+                    }
                 }
             }
             catch (Exception ex)
