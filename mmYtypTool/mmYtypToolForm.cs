@@ -273,6 +273,12 @@ namespace OpenYtyp
                         file.Name += ".ytyp";
                     }
 
+                    string name = file.Name.Replace(".ytyp", "");
+                    JenkIndex.Ensure(name);
+                    MetaHash namehash = new MetaHash(JenkHash.GenHash(name));
+                    file._CMapTypes.name = namehash;
+                    file.NameHash = namehash.Hash;
+
                     SaveFileDialog dlg = new SaveFileDialog();
                     dlg.Title = "Choose location where to save file";
                     dlg.DefaultExt = "ytyp";
