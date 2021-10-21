@@ -911,7 +911,9 @@ namespace OpenYtyp
             }
             else
             {
-                return JenkHash.GenHash(e.ToLowerInvariant());
+                MetaHash metaHash = JenkHash.GenHash(e.ToLowerInvariant());
+                JenkIndex.Ensure(e.ToLowerInvariant());
+                return metaHash;
             }
         }
     }
