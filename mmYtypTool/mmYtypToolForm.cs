@@ -150,7 +150,7 @@ namespace OpenYtyp
                         loadingLb.Text = $"Importing {dlg.SafeFileName}";
                         fileYdr.Drawable.Name = fileYdr.Drawable.Name.Replace(".#dr", "");
 
-                        string name_hash = GetProperHash(Path.GetFileNameWithoutExtension(dlg.SafeFileName)).ToString();
+                        string name_hash = GetProperHash(Path.GetFileNameWithoutExtension(path)).ToString();
 
                         nameTb.Text = name_hash;
                         assetNameTb.Text = name_hash;
