@@ -522,15 +522,12 @@ namespace OpenYtyp
             try
             {
                 if (((TextBox)sender).Modified)
-                    if (file.Loaded)
+                    if (file.AllArchetypes != null)
                     {
-                        if (file.AllArchetypes != null)
+                        if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
                         {
-                            if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
-                            {
-                                archeotypesCb.Items[archeotypesCb.SelectedIndex] = nameTb.Text;
-                                file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.name = GetProperHash(nameTb.Text);
-                            }
+                            archeotypesCb.Items[archeotypesCb.SelectedIndex] = nameTb.Text;
+                            file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.name = GetProperHash(nameTb.Text);
                         }
                     }
             }
@@ -541,14 +538,11 @@ namespace OpenYtyp
             try
             {
                 if (((TextBox)sender).Modified)
-                    if (file.Loaded)
+                    if (file.AllArchetypes != null)
                     {
-                        if (file.AllArchetypes != null)
+                        if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
                         {
-                            if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
-                            {
-                                file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.assetName = GetProperHash(assetNameTb.Text);
-                            }
+                            file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.assetName = GetProperHash(assetNameTb.Text);
                         }
                     }
             }
@@ -558,14 +552,12 @@ namespace OpenYtyp
         {
             try
             {
-                if (file.Loaded)
+
+                if (file.AllArchetypes != null)
                 {
-                    if (file.AllArchetypes != null)
+                    if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
                     {
-                        if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
-                        {
-                            file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.assetType = (rage__fwArchetypeDef__eAssetType)assetTypeCb.SelectedIndex;
-                        }
+                        file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.assetType = (rage__fwArchetypeDef__eAssetType)assetTypeCb.SelectedIndex;
                     }
                 }
             }
@@ -576,14 +568,11 @@ namespace OpenYtyp
             try
             {
                 if (((TextBox)sender).Modified)
-                    if (file.Loaded)
+                    if (file.AllArchetypes != null)
                     {
-                        if (file.AllArchetypes != null)
+                        if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
                         {
-                            if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
-                            {
-                                file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.textureDictionary = JenkHash.GenHash(textureDictTb.Text.ToLowerInvariant());
-                            }
+                            file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.textureDictionary = JenkHash.GenHash(textureDictTb.Text.ToLowerInvariant());
                         }
                     }
             }
@@ -594,14 +583,11 @@ namespace OpenYtyp
             try
             {
                 if (((TextBox)sender).Modified)
-                    if (file.Loaded)
+                    if (file.AllArchetypes != null)
                     {
-                        if (file.AllArchetypes != null)
+                        if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
                         {
-                            if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
-                            {
-                                file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.physicsDictionary = JenkHash.GenHash(physicsDictTb.Text.ToLowerInvariant());
-                            }
+                            file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.physicsDictionary = JenkHash.GenHash(physicsDictTb.Text.ToLowerInvariant());
                         }
                     }
             }
@@ -612,14 +598,11 @@ namespace OpenYtyp
             try
             {
                 if (((TextBox)sender).Modified)
-                    if (file.Loaded)
+                    if (file.AllArchetypes != null)
                     {
-                        if (file.AllArchetypes != null)
+                        if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
                         {
-                            if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
-                            {
-                                file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.drawableDictionary = JenkHash.GenHash(drawableDictTb.Text.ToLowerInvariant());
-                            }
+                            file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.drawableDictionary = JenkHash.GenHash(drawableDictTb.Text.ToLowerInvariant());
                         }
                     }
             }
@@ -629,14 +612,11 @@ namespace OpenYtyp
         {
             try
             {
-                if (file.Loaded)
+                if (file.AllArchetypes != null)
                 {
-                    if (file.AllArchetypes != null)
+                    if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
                     {
-                        if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
-                        {
-                            file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.specialAttribute = Convert.ToUInt32(specialAttributeCb.SelectedIndex);
-                        }
+                        file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.specialAttribute = Convert.ToUInt32(specialAttributeCb.SelectedIndex);
                     }
                 }
             }
@@ -647,35 +627,32 @@ namespace OpenYtyp
             try
             {
                 if (((TextBox)sender).Modified)
-                    if (file.Loaded)
+                    if (file.AllArchetypes != null)
                     {
-                        if (file.AllArchetypes != null)
+                        if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
                         {
-                            if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
+                            string[] vals = bbMinTb.Text.Split(',');
+                            if (vals.Length == 3)
                             {
-                                string[] vals = bbMinTb.Text.Split(',');
-                                if (vals.Length == 3)
+                                if (!string.IsNullOrEmpty(vals[0]) && !string.IsNullOrEmpty(vals[1]) && !string.IsNullOrEmpty(vals[2]))
                                 {
-                                    if (!string.IsNullOrEmpty(vals[0]) && !string.IsNullOrEmpty(vals[1]) && !string.IsNullOrEmpty(vals[2]))
-                                    {
-                                        float r1 = 0.0f;
-                                        bool t1 = float.TryParse(vals[0], out r1);
-                                        float r2 = 0.0f;
-                                        bool t2 = float.TryParse(vals[1], out r2);
-                                        float r3 = 0.0f;
-                                        bool t3 = float.TryParse(vals[2], out r3);
+                                    float r1 = 0.0f;
+                                    bool t1 = float.TryParse(vals[0], out r1);
+                                    float r2 = 0.0f;
+                                    bool t2 = float.TryParse(vals[1], out r2);
+                                    float r3 = 0.0f;
+                                    bool t3 = float.TryParse(vals[2], out r3);
 
-                                        if (t1 && t2 && t3)
-                                        {
-                                            bbMinTb.BackColor = System.Drawing.Color.White;
-                                            file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.bbMin = new SharpDX.Vector3(r1, r2, r3);
-                                        }
-                                        else bbMinTb.BackColor = System.Drawing.Color.IndianRed;
+                                    if (t1 && t2 && t3)
+                                    {
+                                        bbMinTb.BackColor = System.Drawing.Color.White;
+                                        file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.bbMin = new SharpDX.Vector3(r1, r2, r3);
                                     }
                                     else bbMinTb.BackColor = System.Drawing.Color.IndianRed;
                                 }
                                 else bbMinTb.BackColor = System.Drawing.Color.IndianRed;
                             }
+                            else bbMinTb.BackColor = System.Drawing.Color.IndianRed;
                         }
                     }
             }
@@ -689,35 +666,32 @@ namespace OpenYtyp
             try
             {
                 if (((TextBox)sender).Modified)
-                    if (file.Loaded)
+                    if (file.AllArchetypes != null)
                     {
-                        if (file.AllArchetypes != null)
+                        if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
                         {
-                            if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
+                            string[] vals = bbMaxTb.Text.Split(',');
+                            if (vals.Length == 3)
                             {
-                                string[] vals = bbMaxTb.Text.Split(',');
-                                if (vals.Length == 3)
+                                if (!string.IsNullOrEmpty(vals[0]) && !string.IsNullOrEmpty(vals[1]) && !string.IsNullOrEmpty(vals[2]))
                                 {
-                                    if (!string.IsNullOrEmpty(vals[0]) && !string.IsNullOrEmpty(vals[1]) && !string.IsNullOrEmpty(vals[2]))
-                                    {
-                                        float r1 = 0.0f;
-                                        bool t1 = float.TryParse(vals[0], out r1);
-                                        float r2 = 0.0f;
-                                        bool t2 = float.TryParse(vals[1], out r2);
-                                        float r3 = 0.0f;
-                                        bool t3 = float.TryParse(vals[2], out r3);
+                                    float r1 = 0.0f;
+                                    bool t1 = float.TryParse(vals[0], out r1);
+                                    float r2 = 0.0f;
+                                    bool t2 = float.TryParse(vals[1], out r2);
+                                    float r3 = 0.0f;
+                                    bool t3 = float.TryParse(vals[2], out r3);
 
-                                        if (t1 && t2 && t3)
-                                        {
-                                            bbMaxTb.BackColor = System.Drawing.Color.White;
-                                            file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.bbMax = new SharpDX.Vector3(r1, r2, r3);
-                                        }
-                                        else bbMaxTb.BackColor = System.Drawing.Color.IndianRed;
+                                    if (t1 && t2 && t3)
+                                    {
+                                        bbMaxTb.BackColor = System.Drawing.Color.White;
+                                        file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.bbMax = new SharpDX.Vector3(r1, r2, r3);
                                     }
                                     else bbMaxTb.BackColor = System.Drawing.Color.IndianRed;
                                 }
                                 else bbMaxTb.BackColor = System.Drawing.Color.IndianRed;
                             }
+                            else bbMaxTb.BackColor = System.Drawing.Color.IndianRed;
                         }
                     }
             }
@@ -731,35 +705,32 @@ namespace OpenYtyp
             try
             {
                 if (((TextBox)sender).Modified)
-                    if (file.Loaded)
+                    if (file.AllArchetypes != null)
                     {
-                        if (file.AllArchetypes != null)
+                        if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
                         {
-                            if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
+                            string[] vals = bsCentreTb.Text.Split(',');
+                            if (vals.Length == 3)
                             {
-                                string[] vals = bsCentreTb.Text.Split(',');
-                                if (vals.Length == 3)
+                                if (!string.IsNullOrEmpty(vals[0]) && !string.IsNullOrEmpty(vals[1]) && !string.IsNullOrEmpty(vals[2]))
                                 {
-                                    if (!string.IsNullOrEmpty(vals[0]) && !string.IsNullOrEmpty(vals[1]) && !string.IsNullOrEmpty(vals[2]))
-                                    {
-                                        float r1 = 0.0f;
-                                        bool t1 = float.TryParse(vals[0], out r1);
-                                        float r2 = 0.0f;
-                                        bool t2 = float.TryParse(vals[1], out r2);
-                                        float r3 = 0.0f;
-                                        bool t3 = float.TryParse(vals[2], out r3);
+                                    float r1 = 0.0f;
+                                    bool t1 = float.TryParse(vals[0], out r1);
+                                    float r2 = 0.0f;
+                                    bool t2 = float.TryParse(vals[1], out r2);
+                                    float r3 = 0.0f;
+                                    bool t3 = float.TryParse(vals[2], out r3);
 
-                                        if (t1 && t2 && t3)
-                                        {
-                                            bsCentreTb.BackColor = System.Drawing.Color.White;
-                                            file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.bsCentre = new SharpDX.Vector3(r1, r2, r3);
-                                        }
-                                        else bsCentreTb.BackColor = System.Drawing.Color.IndianRed;
+                                    if (t1 && t2 && t3)
+                                    {
+                                        bsCentreTb.BackColor = System.Drawing.Color.White;
+                                        file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.bsCentre = new SharpDX.Vector3(r1, r2, r3);
                                     }
                                     else bsCentreTb.BackColor = System.Drawing.Color.IndianRed;
                                 }
                                 else bsCentreTb.BackColor = System.Drawing.Color.IndianRed;
                             }
+                            else bsCentreTb.BackColor = System.Drawing.Color.IndianRed;
                         }
                     }
             }
@@ -773,14 +744,11 @@ namespace OpenYtyp
             try
             {
                 if (((TextBox)sender).Modified)
-                    if (file.Loaded)
+                    if (file.AllArchetypes != null)
                     {
-                        if (file.AllArchetypes != null)
+                        if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
                         {
-                            if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
-                            {
-                                file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.bsRadius = Convert.ToSingle(bsRadiusTb.Text);
-                            }
+                            file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.bsRadius = Convert.ToSingle(bsRadiusTb.Text);
                         }
                     }
             }
@@ -791,14 +759,11 @@ namespace OpenYtyp
             try
             {
                 if (((TextBox)sender).Modified)
-                    if (file.Loaded)
+                    if (file.AllArchetypes != null)
                     {
-                        if (file.AllArchetypes != null)
+                        if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
                         {
-                            if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
-                            {
-                                file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.hdTextureDist = Convert.ToSingle(hdTextureDistTb.Text);
-                            }
+                            file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.hdTextureDist = Convert.ToSingle(hdTextureDistTb.Text);
                         }
                     }
             }
@@ -809,14 +774,11 @@ namespace OpenYtyp
             try
             {
                 if (((TextBox)sender).Modified)
-                    if (file.Loaded)
+                    if (file.AllArchetypes != null)
                     {
-                        if (file.AllArchetypes != null)
+                        if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
                         {
-                            if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
-                            {
-                                file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.lodDist = Convert.ToSingle(lodDistTb.Text);
-                            }
+                            file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.lodDist = Convert.ToSingle(lodDistTb.Text);
                         }
                     }
             }
