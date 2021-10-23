@@ -460,14 +460,12 @@ namespace OpenYtyp
                     flagsCalcList.SetItemCheckState(i, c ? CheckState.Checked : CheckState.Unchecked);
                 }
                 __flags_user_change = false;
-                if (file.Loaded)
+
+                if (file.AllArchetypes != null)
                 {
-                    if (file.AllArchetypes != null)
+                    if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
                     {
-                        if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
-                        {
-                            file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.flags = Convert.ToUInt32(flagsTb.Text);
-                        }
+                        file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.flags = Convert.ToUInt32(flagsTb.Text);
                     }
                 }
             }
