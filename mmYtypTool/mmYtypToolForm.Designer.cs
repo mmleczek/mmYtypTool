@@ -73,7 +73,6 @@ namespace OpenYtyp
             this.archetypeIndexLb = new System.Windows.Forms.Label();
             this.assetNameTb = new System.Windows.Forms.TextBox();
             this.assetTypeCb = new System.Windows.Forms.ComboBox();
-            this.addBaseArchetypeBtn = new System.Windows.Forms.Button();
             this.ytypNameTb = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -81,11 +80,13 @@ namespace OpenYtyp
             this.label17 = new System.Windows.Forms.Label();
             this.specialAttributeCb = new System.Windows.Forms.ComboBox();
             this.label16 = new System.Windows.Forms.Label();
-            this.removeCurrArcheBtn = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.clearFlagsBtn = new System.Windows.Forms.Button();
             this.flagsCalcList = new System.Windows.Forms.CheckedListBox();
             this.editModeCb = new System.Windows.Forms.CheckBox();
+            this.archetypeTsBtn = new System.Windows.Forms.ToolStripDropDownButton();
+            this.addArchetypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeCurrentArchetypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -97,10 +98,11 @@ namespace OpenYtyp
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileDropDownBtn,
-            this.toolsBtn});
+            this.toolsBtn,
+            this.archetypeTsBtn});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(549, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(532, 25);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -123,35 +125,35 @@ namespace OpenYtyp
             // loadYtypFileBtn
             // 
             this.loadYtypFileBtn.Name = "loadYtypFileBtn";
-            this.loadYtypFileBtn.Size = new System.Drawing.Size(180, 22);
+            this.loadYtypFileBtn.Size = new System.Drawing.Size(160, 22);
             this.loadYtypFileBtn.Text = "Load Ytyp file";
             this.loadYtypFileBtn.Click += new System.EventHandler(this.loadYtypFileBtn_Click);
             // 
             // importYdrFileBtn
             // 
             this.importYdrFileBtn.Name = "importYdrFileBtn";
-            this.importYdrFileBtn.Size = new System.Drawing.Size(180, 22);
+            this.importYdrFileBtn.Size = new System.Drawing.Size(160, 22);
             this.importYdrFileBtn.Text = "Import Ydr file";
             this.importYdrFileBtn.Click += new System.EventHandler(this.importYdrFileBtn_Click);
             // 
             // clearWorkspaceBtn
             // 
             this.clearWorkspaceBtn.Name = "clearWorkspaceBtn";
-            this.clearWorkspaceBtn.Size = new System.Drawing.Size(180, 22);
+            this.clearWorkspaceBtn.Size = new System.Drawing.Size(160, 22);
             this.clearWorkspaceBtn.Text = "Clear workspace";
             this.clearWorkspaceBtn.Click += new System.EventHandler(this.clearWorkspaceBtn_Click);
             // 
             // saveBtn
             // 
             this.saveBtn.Name = "saveBtn";
-            this.saveBtn.Size = new System.Drawing.Size(180, 22);
+            this.saveBtn.Size = new System.Drawing.Size(160, 22);
             this.saveBtn.Text = "Save";
             this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
             // 
             // saveAsBtn
             // 
             this.saveAsBtn.Name = "saveAsBtn";
-            this.saveAsBtn.Size = new System.Drawing.Size(180, 22);
+            this.saveAsBtn.Size = new System.Drawing.Size(160, 22);
             this.saveAsBtn.Text = "Save as";
             this.saveAsBtn.Click += new System.EventHandler(this.saveAsBtn_Click);
             // 
@@ -421,9 +423,9 @@ namespace OpenYtyp
             this.currFileLb,
             this.toolStripSeparator1,
             this.toolStripSeparator2});
-            this.toolStrip2.Location = new System.Drawing.Point(0, 510);
+            this.toolStrip2.Location = new System.Drawing.Point(0, 487);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(549, 25);
+            this.toolStrip2.Size = new System.Drawing.Size(532, 25);
             this.toolStrip2.TabIndex = 28;
             this.toolStrip2.Text = "toolStrip2";
             // 
@@ -495,17 +497,6 @@ namespace OpenYtyp
             this.assetTypeCb.TabIndex = 6;
             this.assetTypeCb.TextChanged += new System.EventHandler(this.assetTypeCb_TextChanged);
             // 
-            // addBaseArchetypeBtn
-            // 
-            this.addBaseArchetypeBtn.Enabled = false;
-            this.addBaseArchetypeBtn.Location = new System.Drawing.Point(8, 432);
-            this.addBaseArchetypeBtn.Name = "addBaseArchetypeBtn";
-            this.addBaseArchetypeBtn.Size = new System.Drawing.Size(157, 23);
-            this.addBaseArchetypeBtn.TabIndex = 18;
-            this.addBaseArchetypeBtn.Text = "Add archetype";
-            this.addBaseArchetypeBtn.UseVisualStyleBackColor = true;
-            this.addBaseArchetypeBtn.Click += new System.EventHandler(this.addBaseArchetypeBtn_Click);
-            // 
             // ytypNameTb
             // 
             this.ytypNameTb.BackColor = System.Drawing.Color.White;
@@ -552,17 +543,15 @@ namespace OpenYtyp
             this.groupBox1.Controls.Add(this.flagsTb);
             this.groupBox1.Controls.Add(this.specialAttributeCb);
             this.groupBox1.Controls.Add(this.label16);
-            this.groupBox1.Controls.Add(this.removeCurrArcheBtn);
-            this.groupBox1.Controls.Add(this.addBaseArchetypeBtn);
             this.groupBox1.Controls.Add(this.archetypeIndexLb);
             this.groupBox1.Controls.Add(this.label14);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 48);
+            this.groupBox1.Location = new System.Drawing.Point(3, 48);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(320, 462);
+            this.groupBox1.Size = new System.Drawing.Size(320, 436);
             this.groupBox1.TabIndex = 36;
             this.groupBox1.TabStop = false;
             // 
@@ -626,31 +615,20 @@ namespace OpenYtyp
             this.label16.TabIndex = 40;
             this.label16.Text = "Special attribute:";
             // 
-            // removeCurrArcheBtn
-            // 
-            this.removeCurrArcheBtn.Enabled = false;
-            this.removeCurrArcheBtn.Location = new System.Drawing.Point(169, 432);
-            this.removeCurrArcheBtn.Name = "removeCurrArcheBtn";
-            this.removeCurrArcheBtn.Size = new System.Drawing.Size(142, 23);
-            this.removeCurrArcheBtn.TabIndex = 19;
-            this.removeCurrArcheBtn.Text = "Remove current archetype";
-            this.removeCurrArcheBtn.UseVisualStyleBackColor = true;
-            this.removeCurrArcheBtn.Click += new System.EventHandler(this.removeCurrArcheBtn_Click);
-            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.clearFlagsBtn);
             this.groupBox2.Controls.Add(this.flagsCalcList);
-            this.groupBox2.Location = new System.Drawing.Point(338, 48);
+            this.groupBox2.Location = new System.Drawing.Point(329, 48);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(200, 462);
+            this.groupBox2.Size = new System.Drawing.Size(200, 436);
             this.groupBox2.TabIndex = 37;
             this.groupBox2.TabStop = false;
             // 
             // clearFlagsBtn
             // 
             this.clearFlagsBtn.Enabled = false;
-            this.clearFlagsBtn.Location = new System.Drawing.Point(6, 432);
+            this.clearFlagsBtn.Location = new System.Drawing.Point(6, 404);
             this.clearFlagsBtn.Name = "clearFlagsBtn";
             this.clearFlagsBtn.Size = new System.Drawing.Size(188, 23);
             this.clearFlagsBtn.TabIndex = 21;
@@ -697,7 +675,7 @@ namespace OpenYtyp
             "2147483648 - Disable alpha vertex"});
             this.flagsCalcList.Location = new System.Drawing.Point(6, 13);
             this.flagsCalcList.Name = "flagsCalcList";
-            this.flagsCalcList.Size = new System.Drawing.Size(188, 409);
+            this.flagsCalcList.Size = new System.Drawing.Size(188, 379);
             this.flagsCalcList.TabIndex = 20;
             this.flagsCalcList.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.flagsCalcList_ItemCheck);
             // 
@@ -705,7 +683,7 @@ namespace OpenYtyp
             // 
             this.editModeCb.AutoSize = true;
             this.editModeCb.Enabled = false;
-            this.editModeCb.Location = new System.Drawing.Point(459, 31);
+            this.editModeCb.Location = new System.Drawing.Point(456, 28);
             this.editModeCb.Name = "editModeCb";
             this.editModeCb.Size = new System.Drawing.Size(73, 17);
             this.editModeCb.TabIndex = 21;
@@ -713,11 +691,38 @@ namespace OpenYtyp
             this.editModeCb.UseVisualStyleBackColor = true;
             this.editModeCb.CheckedChanged += new System.EventHandler(this.editModeCb_CheckedChanged);
             // 
+            // archetypeTsBtn
+            // 
+            this.archetypeTsBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.archetypeTsBtn.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addArchetypeToolStripMenuItem,
+            this.removeCurrentArchetypeToolStripMenuItem});
+            this.archetypeTsBtn.Enabled = false;
+            this.archetypeTsBtn.Image = ((System.Drawing.Image)(resources.GetObject("archetypeTsBtn.Image")));
+            this.archetypeTsBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.archetypeTsBtn.Name = "archetypeTsBtn";
+            this.archetypeTsBtn.Size = new System.Drawing.Size(74, 22);
+            this.archetypeTsBtn.Text = "Archetype";
+            // 
+            // addArchetypeToolStripMenuItem
+            // 
+            this.addArchetypeToolStripMenuItem.Name = "addArchetypeToolStripMenuItem";
+            this.addArchetypeToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.addArchetypeToolStripMenuItem.Text = "Add archetype";
+            this.addArchetypeToolStripMenuItem.Click += new System.EventHandler(this.addBaseArchetypeBtn_Click);
+            // 
+            // removeCurrentArchetypeToolStripMenuItem
+            // 
+            this.removeCurrentArchetypeToolStripMenuItem.Name = "removeCurrentArchetypeToolStripMenuItem";
+            this.removeCurrentArchetypeToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.removeCurrentArchetypeToolStripMenuItem.Text = "Remove current archetype";
+            this.removeCurrentArchetypeToolStripMenuItem.Click += new System.EventHandler(this.removeCurrArcheBtn_Click);
+            // 
             // mmYtypToolForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(549, 535);
+            this.ClientSize = new System.Drawing.Size(532, 512);
             this.Controls.Add(this.editModeCb);
             this.Controls.Add(this.toolStrip2);
             this.Controls.Add(this.groupBox2);
@@ -782,11 +787,9 @@ namespace OpenYtyp
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.TextBox assetNameTb;
         private System.Windows.Forms.ComboBox assetTypeCb;
-        private System.Windows.Forms.Button addBaseArchetypeBtn;
         private System.Windows.Forms.TextBox ytypNameTb;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button removeCurrArcheBtn;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.ComboBox specialAttributeCb;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -803,6 +806,9 @@ namespace OpenYtyp
         private System.Windows.Forms.ToolStripDropDownButton toolsBtn;
         private System.Windows.Forms.ToolStripMenuItem jenkinsHashBtn;
         private System.Windows.Forms.CheckBox editModeCb;
+        private System.Windows.Forms.ToolStripDropDownButton archetypeTsBtn;
+        private System.Windows.Forms.ToolStripMenuItem addArchetypeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removeCurrentArchetypeToolStripMenuItem;
     }
 }
 

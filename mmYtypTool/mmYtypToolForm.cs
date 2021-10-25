@@ -52,8 +52,7 @@ namespace OpenYtyp
                 hdTextureDistTb.ReadOnly = false;
                 lodDistTb.ReadOnly = false;
 
-                addBaseArchetypeBtn.Enabled = true;
-                removeCurrArcheBtn.Enabled = true;
+                archetypeTsBtn.Enabled = true;
                 flagsCalcList.Enabled = true;
                 clearFlagsBtn.Enabled = true;
             }
@@ -79,8 +78,7 @@ namespace OpenYtyp
                 hdTextureDistTb.ReadOnly = true;
                 lodDistTb.ReadOnly = true;
 
-                addBaseArchetypeBtn.Enabled = false;
-                removeCurrArcheBtn.Enabled = false;
+                archetypeTsBtn.Enabled = false;
                 flagsCalcList.Enabled = false;
                 clearFlagsBtn.Enabled = false;
             }
