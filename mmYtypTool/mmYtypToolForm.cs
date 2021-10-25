@@ -174,7 +174,7 @@ namespace mmYtypTool
                         loadingLb.Text = $"Imported {dlg.SafeFileName}";
                         currFileLb.Text = dlg.SafeFileName;
 
-                        if(file.AllArchetypes.Length > 0 && dlg.FileNames.Length == 1)
+                        if(file.AllArchetypes != null && file.AllArchetypes.Length > 0 && dlg.FileNames.Length == 1)
                         {
                             if (MessageBox.Show("Would you like to replace current archetype?", "mmYtypTool", MessageBoxButtons.YesNo) == DialogResult.Yes)
                             {
@@ -402,44 +402,51 @@ namespace mmYtypTool
         }
         private void removeCurrArcheBtn_Click(object sender, EventArgs e)
         {
-            string name = archeotypesCb.Text;
-
-            if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
+            try
             {
-                file.RemoveArchetype(file.AllArchetypes[archeotypesCb.SelectedIndex]);
-                archeotypesCb.Items.RemoveAt(archeotypesCb.SelectedIndex);
+                string name = archeotypesCb.Text;
 
-                if (archeotypesCb.Items.Count > 0)
+                if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
                 {
-                    archeotypesCb.SelectedIndex = archeotypesCb.Items.Count - 1;
-                }
-                else
-                {
-                    archetypeTypeTb.Text = "";
-                    archeotypesCb.Text = "";
-                    archeotypesCb.Items.Clear();
                     ytypNameTb.Text = "";
-                    nameTb.Text = "";
-                    assetNameTb.Text = "";
-                    assetTypeCb.Text = "";
-                    textureDictTb.Text = "";
-                    physicsDictTb.Text = "";
-                    drawableDictTb.Text = "";
-                    specialAttributeCb.SelectedIndex = 0;
-                    for (int i = 0; i < flagsCalcList.Items.Count; i++) flagsCalcList.SetItemChecked(i, false);
-                    flagsTb.Text = "";
-                    hdTextureDistTb.Text = "";
-                    lodDistTb.Text = "";
-                    bbMinTb.Text = "";
-                    bbMaxTb.Text = "";
-                    bsCentreTb.Text = "";
-                    bsRadiusTb.Text = "";
-                    loadingLb.Text = "";
-                    currFileLb.Text = "";
-                }
+                    file.RemoveArchetype(file.AllArchetypes[archeotypesCb.SelectedIndex]);
 
-                CommitSelection();
-                MessageBox.Show($"Removed {name} archetype");
+                    if (archeotypesCb.Items.Count > 1)
+                    {
+                        archeotypesCb.Items.RemoveAt(archeotypesCb.SelectedIndex);
+                        archeotypesCb.SelectedIndex = archeotypesCb.Items.Count - 1;
+                        CommitSelection();
+                    }
+                    else
+                    {
+                        archetypeTypeTb.Text = "";
+                        archeotypesCb.Text = "";
+                        archeotypesCb.Items.Clear();
+                        nameTb.Text = "";
+                        assetNameTb.Text = "";
+                        assetTypeCb.Text = "";
+                        textureDictTb.Text = "";
+                        physicsDictTb.Text = "";
+                        drawableDictTb.Text = "";
+                        specialAttributeCb.SelectedIndex = 0;
+                        for (int i = 0; i < flagsCalcList.Items.Count; i++) flagsCalcList.SetItemChecked(i, false);
+                        flagsTb.Text = "";
+                        hdTextureDistTb.Text = "";
+                        lodDistTb.Text = "";
+                        bbMinTb.Text = "";
+                        bbMaxTb.Text = "";
+                        bsCentreTb.Text = "";
+                        bsRadiusTb.Text = "";
+                        loadingLb.Text = "";
+                        currFileLb.Text = "";
+                    }
+
+                    MessageBox.Show($"Removed {name} archetype");
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show($"Error occured removeCurrArcheBtn_Click: {ex.Message} {ex.StackTrace}");
             }
         }
         private void CommitSelection()
@@ -475,7 +482,7 @@ namespace mmYtypTool
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error occured: {ex.Message}");
+                MessageBox.Show($"Error occured CommitSelection: {ex.Message} {ex.StackTrace}");
             }
         }
         #endregion
@@ -498,7 +505,7 @@ namespace mmYtypTool
 
                 if (file.AllArchetypes != null)
                 {
-                    if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
+                    if (file.AllArchetypes != null && file.AllArchetypes.Length > 0 && file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
                     {
                         file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.flags = Convert.ToUInt32(flagsTb.Text);
                     }
@@ -506,7 +513,7 @@ namespace mmYtypTool
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error occured: {ex.Message}");
+                MessageBox.Show($"Error occured flagsTb_TextChanged: {ex.Message} {ex.StackTrace}");
             }
         }
         private void flagsCalcList_ItemCheck(object sender, ItemCheckEventArgs e)
