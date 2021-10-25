@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using CodeWalker.GameFiles;
 
-namespace OpenYtyp
+namespace mmYtypTool
 {
     public partial class JenkinsHashForm : Form
     {

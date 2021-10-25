@@ -1,5 +1,5 @@
 ﻿
-namespace OpenYtyp
+namespace mmYtypTool
 {
     partial class JenkinsHashForm
     {
