@@ -174,7 +174,7 @@ namespace mmYtypTool
                         loadingLb.Text = $"Imported {dlg.SafeFileName}";
                         currFileLb.Text = dlg.SafeFileName;
 
-                        if(file.AllArchetypes.Length > 0)
+                        if(file.AllArchetypes.Length > 0 && dlg.FileNames.Length == 1)
                         {
                             if (MessageBox.Show("Would you like to replace current archetype?", "mmYtypTool", MessageBoxButtons.YesNo) == DialogResult.Yes)
                             {
