@@ -408,7 +408,6 @@ namespace mmYtypTool
 
                 if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
                 {
-                    ytypNameTb.Text = "";
                     file.RemoveArchetype(file.AllArchetypes[archeotypesCb.SelectedIndex]);
 
                     if (archeotypesCb.Items.Count > 1)
