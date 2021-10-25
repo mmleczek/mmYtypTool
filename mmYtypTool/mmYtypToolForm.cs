@@ -172,7 +172,21 @@ namespace mmYtypTool
                         loadingLb.Text = $"Imported {dlg.SafeFileName}";
                         currFileLb.Text = dlg.SafeFileName;
 
-                        addArchetypeFromForms();
+                        if(file.AllArchetypes.Length > 0)
+                        {
+                            if (MessageBox.Show("Would you like to replace current archetype?", "mmYtypTool", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                            {
+                                addArchetypeFromForms(true);
+                            }
+                            else
+                            {
+                                addArchetypeFromForms();
+                            }
+                        }
+                        else
+                        {
+                            addArchetypeFromForms();
+                        }
                     }
                 }
             }
@@ -314,7 +328,7 @@ namespace mmYtypTool
             }));
             getName.Show();
         }
-        private void addArchetypeFromForms()
+        private void addArchetypeFromForms(bool replace_current_archetype = false)
         {
             try
             {
@@ -365,10 +379,18 @@ namespace mmYtypTool
                     s._BaseArchetypeDef.lodDist = Convert.ToSingle(lodDistTb.Text);
                 }
                 
-                file.AddArchetype(s);
+                if (replace_current_archetype)
+                {
+                    file.AllArchetypes[archeotypesCb.SelectedIndex] = s;
+                }
+                else
+                {
+                    file.AddArchetype(s);
 
-                archeotypesCb.Items.Add(s.Name);
-                archeotypesCb.SelectedIndex = archeotypesCb.Items.Count - 1;
+                    archeotypesCb.Items.Add(s.Name);
+                    archeotypesCb.SelectedIndex = archeotypesCb.Items.Count - 1;
+                }
+
                 CommitSelection();
             }
             catch (Exception ex)
