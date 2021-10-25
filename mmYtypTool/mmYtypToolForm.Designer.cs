@@ -39,6 +39,9 @@ namespace mmYtypTool
             this.saveAsBtn = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsBtn = new System.Windows.Forms.ToolStripDropDownButton();
             this.jenkinsHashBtn = new System.Windows.Forms.ToolStripMenuItem();
+            this.archetypeTsBtn = new System.Windows.Forms.ToolStripDropDownButton();
+            this.addArchetypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeCurrentArchetypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.nameTb = new System.Windows.Forms.TextBox();
             this.textureDictTb = new System.Windows.Forms.TextBox();
@@ -84,9 +87,6 @@ namespace mmYtypTool
             this.clearFlagsBtn = new System.Windows.Forms.Button();
             this.flagsCalcList = new System.Windows.Forms.CheckedListBox();
             this.editModeCb = new System.Windows.Forms.CheckBox();
-            this.archetypeTsBtn = new System.Windows.Forms.ToolStripDropDownButton();
-            this.addArchetypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.removeCurrentArchetypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -172,9 +172,36 @@ namespace mmYtypTool
             // jenkinsHashBtn
             // 
             this.jenkinsHashBtn.Name = "jenkinsHashBtn";
-            this.jenkinsHashBtn.Size = new System.Drawing.Size(180, 22);
+            this.jenkinsHashBtn.Size = new System.Drawing.Size(142, 22);
             this.jenkinsHashBtn.Text = "Jenkins Hash";
             this.jenkinsHashBtn.Click += new System.EventHandler(this.jenkinsHashBtn_Click);
+            // 
+            // archetypeTsBtn
+            // 
+            this.archetypeTsBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.archetypeTsBtn.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addArchetypeToolStripMenuItem,
+            this.removeCurrentArchetypeToolStripMenuItem});
+            this.archetypeTsBtn.Enabled = false;
+            this.archetypeTsBtn.Image = ((System.Drawing.Image)(resources.GetObject("archetypeTsBtn.Image")));
+            this.archetypeTsBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.archetypeTsBtn.Name = "archetypeTsBtn";
+            this.archetypeTsBtn.Size = new System.Drawing.Size(74, 22);
+            this.archetypeTsBtn.Text = "Archetype";
+            // 
+            // addArchetypeToolStripMenuItem
+            // 
+            this.addArchetypeToolStripMenuItem.Name = "addArchetypeToolStripMenuItem";
+            this.addArchetypeToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.addArchetypeToolStripMenuItem.Text = "Add new archetype";
+            this.addArchetypeToolStripMenuItem.Click += new System.EventHandler(this.addBaseArchetypeBtn_Click);
+            // 
+            // removeCurrentArchetypeToolStripMenuItem
+            // 
+            this.removeCurrentArchetypeToolStripMenuItem.Name = "removeCurrentArchetypeToolStripMenuItem";
+            this.removeCurrentArchetypeToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.removeCurrentArchetypeToolStripMenuItem.Text = "Remove current archetype";
+            this.removeCurrentArchetypeToolStripMenuItem.Click += new System.EventHandler(this.removeCurrArcheBtn_Click);
             // 
             // label1
             // 
@@ -407,7 +434,7 @@ namespace mmYtypTool
             // 
             this.archeotypesCb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.archeotypesCb.FormattingEnabled = true;
-            this.archeotypesCb.Location = new System.Drawing.Point(121, 61);
+            this.archeotypesCb.Location = new System.Drawing.Point(110, 13);
             this.archeotypesCb.Name = "archeotypesCb";
             this.archeotypesCb.Size = new System.Drawing.Size(143, 21);
             this.archeotypesCb.TabIndex = 2;
@@ -500,16 +527,16 @@ namespace mmYtypTool
             // ytypNameTb
             // 
             this.ytypNameTb.BackColor = System.Drawing.Color.White;
-            this.ytypNameTb.Location = new System.Drawing.Point(121, 29);
+            this.ytypNameTb.Location = new System.Drawing.Point(113, 29);
             this.ytypNameTb.Name = "ytypNameTb";
             this.ytypNameTb.ReadOnly = true;
-            this.ytypNameTb.Size = new System.Drawing.Size(202, 20);
+            this.ytypNameTb.Size = new System.Drawing.Size(201, 20);
             this.ytypNameTb.TabIndex = 1;
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(56, 32);
+            this.label15.Location = new System.Drawing.Point(45, 32);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(60, 13);
             this.label15.TabIndex = 35;
@@ -522,6 +549,7 @@ namespace mmYtypTool
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.archeotypesCb);
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.assetTypeCb);
             this.groupBox1.Controls.Add(this.nameTb);
@@ -691,33 +719,6 @@ namespace mmYtypTool
             this.editModeCb.UseVisualStyleBackColor = true;
             this.editModeCb.CheckedChanged += new System.EventHandler(this.editModeCb_CheckedChanged);
             // 
-            // archetypeTsBtn
-            // 
-            this.archetypeTsBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.archetypeTsBtn.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addArchetypeToolStripMenuItem,
-            this.removeCurrentArchetypeToolStripMenuItem});
-            this.archetypeTsBtn.Enabled = false;
-            this.archetypeTsBtn.Image = ((System.Drawing.Image)(resources.GetObject("archetypeTsBtn.Image")));
-            this.archetypeTsBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.archetypeTsBtn.Name = "archetypeTsBtn";
-            this.archetypeTsBtn.Size = new System.Drawing.Size(74, 22);
-            this.archetypeTsBtn.Text = "Archetype";
-            // 
-            // addArchetypeToolStripMenuItem
-            // 
-            this.addArchetypeToolStripMenuItem.Name = "addArchetypeToolStripMenuItem";
-            this.addArchetypeToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
-            this.addArchetypeToolStripMenuItem.Text = "Add archetype";
-            this.addArchetypeToolStripMenuItem.Click += new System.EventHandler(this.addBaseArchetypeBtn_Click);
-            // 
-            // removeCurrentArchetypeToolStripMenuItem
-            // 
-            this.removeCurrentArchetypeToolStripMenuItem.Name = "removeCurrentArchetypeToolStripMenuItem";
-            this.removeCurrentArchetypeToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
-            this.removeCurrentArchetypeToolStripMenuItem.Text = "Remove current archetype";
-            this.removeCurrentArchetypeToolStripMenuItem.Click += new System.EventHandler(this.removeCurrArcheBtn_Click);
-            // 
             // mmYtypToolForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -728,7 +729,6 @@ namespace mmYtypTool
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.ytypNameTb);
-            this.Controls.Add(this.archeotypesCb);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;

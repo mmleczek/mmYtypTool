@@ -187,28 +187,8 @@ namespace mmYtypTool
             {
                 file = null;
                 file = new YtypFile();
-
-                if (archeotypesCb.Items.Count > 0) archeotypesCb.SelectedIndex = 0;
-                archeotypesCb.Items.Clear();
                 ytypNameTb.Text = "";
-                nameTb.Text = "";
-                assetNameTb.Text = "";
-                if (assetTypeCb.Items.Count > 0) assetTypeCb.SelectedIndex = 0;
-                textureDictTb.Text = "";
-                physicsDictTb.Text = "";
-                drawableDictTb.Text = "";
-                if (specialAttributeCb.Items.Count > 0) specialAttributeCb.SelectedIndex = 0;
-                for (int i = 0; i < flagsCalcList.Items.Count; i++) flagsCalcList.SetItemChecked(i, false);
-                flagsTb.Text = "";
-                hdTextureDistTb.Text = "";
-                lodDistTb.Text = "";
-                bbMinTb.Text = "";
-                bbMaxTb.Text = "";
-                bsCentreTb.Text = "";
-                bsRadiusTb.Text = "";
-                loadingLb.Text = "";
-                currFileLb.Text = "";
-
+                ClearTextboxes();
                 OpenedFilePath = "";
             }
             catch (Exception ex)
@@ -312,14 +292,27 @@ namespace mmYtypTool
         #endregion
 
         #region archeotype stuff
-
         private void archeotypesCb_SelectionChangeCommitted(object sender, EventArgs e)
         {
             CommitSelection();
         }
         private void addBaseArchetypeBtn_Click(object sender, EventArgs e)
         {
-            addArchetypeFromForms();
+            EnterNameForm getName = new EnterNameForm(new Action<string>((name) => {
+                if(!string.IsNullOrEmpty(name))
+                {
+                    ClearTextboxes();
+                    nameTb.Text = name.ToLowerInvariant();
+                    assetNameTb.Text = name.ToLowerInvariant();
+                    flagsTb.Text = "0";
+                    addArchetypeFromForms();
+                }
+                else
+                {
+                    MessageBox.Show("Name cannot be empty.");
+                }
+            }));
+            getName.Show();
         }
         private void addArchetypeFromForms()
         {
@@ -339,18 +332,39 @@ namespace mmYtypTool
                 s._BaseArchetypeDef.specialAttribute = Convert.ToUInt32(specialAttributeCb.SelectedIndex);
                 s._BaseArchetypeDef.flags = Convert.ToUInt32(flagsTb.Text);
 
-                string[] vals = bbMinTb.Text.Split(',');
-                s._BaseArchetypeDef.bbMin = new SharpDX.Vector3(Convert.ToSingle(vals[0]), Convert.ToSingle(vals[1]), Convert.ToSingle(vals[2]));
+                if(!string.IsNullOrEmpty(bbMinTb.Text))
+                {
+                    string[] vals = bbMinTb.Text.Split(',');
+                    s._BaseArchetypeDef.bbMin = new SharpDX.Vector3(Convert.ToSingle(vals[0]), Convert.ToSingle(vals[1]), Convert.ToSingle(vals[2]));
+                }
 
-                vals = bbMaxTb.Text.Split(',');
-                s._BaseArchetypeDef.bbMax = new SharpDX.Vector3(Convert.ToSingle(vals[0]), Convert.ToSingle(vals[1]), Convert.ToSingle(vals[2]));
+                if (!string.IsNullOrEmpty(bbMaxTb.Text))
+                {
+                    string[] vals = bbMaxTb.Text.Split(',');
+                    s._BaseArchetypeDef.bbMax = new SharpDX.Vector3(Convert.ToSingle(vals[0]), Convert.ToSingle(vals[1]), Convert.ToSingle(vals[2]));
+                }
 
-                vals = bsCentreTb.Text.Split(',');
-                s._BaseArchetypeDef.bsCentre = new SharpDX.Vector3(Convert.ToSingle(vals[0]), Convert.ToSingle(vals[1]), Convert.ToSingle(vals[2]));
+                if (!string.IsNullOrEmpty(bbMaxTb.Text))
+                {
+                    string[] vals = bsCentreTb.Text.Split(',');
+                    s._BaseArchetypeDef.bsCentre = new SharpDX.Vector3(Convert.ToSingle(vals[0]), Convert.ToSingle(vals[1]), Convert.ToSingle(vals[2]));
+                }
 
-                s._BaseArchetypeDef.bsRadius = Convert.ToSingle(bsRadiusTb.Text);
-                s._BaseArchetypeDef.hdTextureDist = Convert.ToSingle(hdTextureDistTb.Text);
-                s._BaseArchetypeDef.lodDist = Convert.ToSingle(lodDistTb.Text);
+                if (!string.IsNullOrEmpty(bsRadiusTb.Text))
+                {
+                    s._BaseArchetypeDef.bsRadius = Convert.ToSingle(bsRadiusTb.Text);
+                }
+
+                if (!string.IsNullOrEmpty(hdTextureDistTb.Text))
+                {
+                    s._BaseArchetypeDef.hdTextureDist = Convert.ToSingle(hdTextureDistTb.Text);
+                }
+
+                if (!string.IsNullOrEmpty(lodDistTb.Text))
+                {
+                    s._BaseArchetypeDef.lodDist = Convert.ToSingle(lodDistTb.Text);
+                }
+                
                 file.AddArchetype(s);
 
                 archeotypesCb.Items.Add(s.Name);
@@ -404,7 +418,6 @@ namespace mmYtypTool
                 MessageBox.Show($"Removed {name} archetype");
             }
         }
-
         private void CommitSelection()
         {
             try
@@ -781,6 +794,36 @@ namespace mmYtypTool
             catch { }
         }
         #endregion
+
+        private void ClearTextboxes()
+        {
+            try
+            {
+                if (archeotypesCb.Items.Count > 0) archeotypesCb.SelectedIndex = 0;
+                archeotypesCb.Items.Clear();
+                nameTb.Text = "";
+                assetNameTb.Text = "";
+                if (assetTypeCb.Items.Count > 0) assetTypeCb.SelectedIndex = 0;
+                textureDictTb.Text = "";
+                physicsDictTb.Text = "";
+                drawableDictTb.Text = "";
+                if (specialAttributeCb.Items.Count > 0) specialAttributeCb.SelectedIndex = 0;
+                for (int i = 0; i < flagsCalcList.Items.Count; i++) flagsCalcList.SetItemChecked(i, false);
+                flagsTb.Text = "";
+                hdTextureDistTb.Text = "";
+                lodDistTb.Text = "";
+                bbMinTb.Text = "";
+                bbMaxTb.Text = "";
+                bsCentreTb.Text = "";
+                bsRadiusTb.Text = "";
+                loadingLb.Text = "";
+                currFileLb.Text = "";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error occured while ClearTextboxes. Error message: {ex.Message}");
+            }
+        }
 
         private void LoadSettings()
         {
