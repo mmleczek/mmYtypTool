@@ -103,6 +103,7 @@ namespace mmYtypTool
                 {
                     OpenedFilePath = dlg.FileName;
                     byte[] file_raw = File.ReadAllBytes(dlg.FileName);
+                    JenkIndex.Ensure(Path.GetFileNameWithoutExtension(dlg.FileName));
                     file.Load(file_raw);
                     loadingLb.Text = $"Loading {dlg.SafeFileName}";
                     ytypNameTb.Text = dlg.SafeFileName;
@@ -144,6 +145,7 @@ namespace mmYtypTool
                     {
                         YdrFile fileYdr = new YdrFile();
                         byte[] file_raw = File.ReadAllBytes(path);
+                        JenkIndex.Ensure(Path.GetFileNameWithoutExtension(path));
                         RpfFile.LoadResourceFile<YdrFile>(fileYdr, file_raw, 165);
                         loadingLb.Text = $"Importing {dlg.SafeFileName}";
                         fileYdr.Drawable.Name = fileYdr.Drawable.Name.Replace(".#dr", "");
