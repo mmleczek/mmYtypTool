@@ -149,6 +149,7 @@ namespace mmYtypTool
             this.MaximizeBox = false;
             this.Name = "JenkinsHashForm";
             this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "JenkinsHash";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
