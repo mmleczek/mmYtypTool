@@ -1,5 +1,6 @@
 ﻿using CodeWalker.GameFiles;
 using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Threading;
@@ -317,7 +318,7 @@ namespace mmYtypTool
             EnterNameForm getName = new EnterNameForm(new Action<string>((name) => {
                 if(!string.IsNullOrEmpty(name))
                 {
-                    ClearTextboxes();
+                    ClearTextboxes(false);
                     nameTb.Text = name.ToLowerInvariant();
                     assetNameTb.Text = name.ToLowerInvariant();
                     flagsTb.Text = "0";
@@ -339,13 +340,13 @@ namespace mmYtypTool
                 s._BaseArchetypeDef.name = GetProperHash(nameTb.Text.ToLowerInvariant());
                 s._BaseArchetypeDef.assetName = GetProperHash(assetNameTb.Text.ToLowerInvariant());
 
-                s._BaseArchetypeDef.assetType = (rage__fwArchetypeDef__eAssetType)assetTypeCb.SelectedIndex;
+                if (assetTypeCb.SelectedIndex > -1) s._BaseArchetypeDef.assetType = (rage__fwArchetypeDef__eAssetType)assetTypeCb.SelectedIndex;
 
                 s._BaseArchetypeDef.textureDictionary = GetProperHash(textureDictTb.Text.ToLowerInvariant());
                 s._BaseArchetypeDef.physicsDictionary = GetProperHash(physicsDictTb.Text.ToLowerInvariant());
                 s._BaseArchetypeDef.drawableDictionary = GetProperHash(drawableDictTb.Text.ToLowerInvariant());
 
-                s._BaseArchetypeDef.specialAttribute = Convert.ToUInt32(specialAttributeCb.SelectedIndex);
+                if (specialAttributeCb.SelectedIndex > -1) s._BaseArchetypeDef.specialAttribute = Convert.ToUInt32(specialAttributeCb.SelectedIndex);
                 s._BaseArchetypeDef.flags = Convert.ToUInt32(flagsTb.Text);
 
                 if(!string.IsNullOrEmpty(bbMinTb.Text))
@@ -388,7 +389,6 @@ namespace mmYtypTool
                 else
                 {
                     file.AddArchetype(s);
-
                     archeotypesCb.Items.Add(s.Name);
                     archeotypesCb.SelectedIndex = archeotypesCb.Items.Count - 1;
                 }
@@ -406,7 +406,7 @@ namespace mmYtypTool
             {
                 string name = archeotypesCb.Text;
 
-                if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
+                if (archeotypesCb.SelectedIndex > -1 && file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
                 {
                     file.RemoveArchetype(file.AllArchetypes[archeotypesCb.SelectedIndex]);
 
@@ -453,6 +453,7 @@ namespace mmYtypTool
             try
             {
                 Archetype[] archs = file.AllArchetypes;
+
                 if (archs.Length > archeotypesCb.SelectedIndex)
                 {
                     Archetype selected = archs[archeotypesCb.SelectedIndex];
@@ -492,23 +493,23 @@ namespace mmYtypTool
         {
             try
             {
-                __flags_user_change = true;
-                uint flags = 0;
-                uint.TryParse(flagsTb.Text, out flags);
-                for (int i = 0; i < flagsCalcList.Items.Count; i++)
-                {
-                    var c = ((flags & (1u << i)) > 0);
-                    flagsCalcList.SetItemCheckState(i, c ? CheckState.Checked : CheckState.Unchecked);
-                }
-                __flags_user_change = false;
-
-                if (file.AllArchetypes != null)
-                {
-                    if (file.AllArchetypes != null && file.AllArchetypes.Length > 0 && file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
+                if (((TextBox)sender).Modified)
+                    if (file.AllArchetypes != null)
                     {
-                        file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.flags = Convert.ToUInt32(flagsTb.Text);
+                        if (file.AllArchetypes != null && file.AllArchetypes.Length > 0 && file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
+                        {
+                            __flags_user_change = true;
+                            uint flags = 0;
+                            uint.TryParse(flagsTb.Text, out flags);
+                            for (int i = 0; i < flagsCalcList.Items.Count; i++)
+                            {
+                                var c = ((flags & (1u << i)) > 0);
+                                flagsCalcList.SetItemCheckState(i, c ? CheckState.Checked : CheckState.Unchecked);
+                            }
+                            __flags_user_change = false;
+                            file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.flags = Convert.ToUInt32(flagsTb.Text);
+                        }
                     }
-                }
             }
             catch (Exception ex)
             {
@@ -563,7 +564,7 @@ namespace mmYtypTool
                 if (((TextBox)sender).Modified)
                     if (file.AllArchetypes != null)
                     {
-                        if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
+                        if (archeotypesCb.SelectedIndex > -1 && file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
                         {
                             archeotypesCb.Items[archeotypesCb.SelectedIndex] = nameTb.Text;
                             file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.name = GetProperHash(nameTb.Text);
@@ -579,7 +580,7 @@ namespace mmYtypTool
                 if (((TextBox)sender).Modified)
                     if (file.AllArchetypes != null)
                     {
-                        if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
+                        if (archeotypesCb.SelectedIndex > -1 && file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
                         {
                             file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.assetName = GetProperHash(assetNameTb.Text);
                         }
@@ -591,10 +592,9 @@ namespace mmYtypTool
         {
             try
             {
-
                 if (file.AllArchetypes != null)
                 {
-                    if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
+                    if (archeotypesCb.SelectedIndex > -1 && file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
                     {
                         file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.assetType = (rage__fwArchetypeDef__eAssetType)assetTypeCb.SelectedIndex;
                     }
@@ -624,7 +624,7 @@ namespace mmYtypTool
                 if (((TextBox)sender).Modified)
                     if (file.AllArchetypes != null)
                     {
-                        if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
+                        if (archeotypesCb.SelectedIndex > -1 && file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
                         {
                             file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.physicsDictionary = JenkHash.GenHash(physicsDictTb.Text.ToLowerInvariant());
                         }
@@ -639,7 +639,7 @@ namespace mmYtypTool
                 if (((TextBox)sender).Modified)
                     if (file.AllArchetypes != null)
                     {
-                        if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
+                        if (archeotypesCb.SelectedIndex > -1 && file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
                         {
                             file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.drawableDictionary = JenkHash.GenHash(drawableDictTb.Text.ToLowerInvariant());
                         }
@@ -653,7 +653,7 @@ namespace mmYtypTool
             {
                 if (file.AllArchetypes != null)
                 {
-                    if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
+                    if (archeotypesCb.SelectedIndex > -1 && file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
                     {
                         file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.specialAttribute = Convert.ToUInt32(specialAttributeCb.SelectedIndex);
                     }
@@ -668,7 +668,7 @@ namespace mmYtypTool
                 if (((TextBox)sender).Modified)
                     if (file.AllArchetypes != null)
                     {
-                        if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
+                        if (archeotypesCb.SelectedIndex > -1 && file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
                         {
                             string[] vals = bbMinTb.Text.Split(',');
                             if (vals.Length == 3)
@@ -707,7 +707,7 @@ namespace mmYtypTool
                 if (((TextBox)sender).Modified)
                     if (file.AllArchetypes != null)
                     {
-                        if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
+                        if (archeotypesCb.SelectedIndex > -1 && file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
                         {
                             string[] vals = bbMaxTb.Text.Split(',');
                             if (vals.Length == 3)
@@ -746,7 +746,7 @@ namespace mmYtypTool
                 if (((TextBox)sender).Modified)
                     if (file.AllArchetypes != null)
                     {
-                        if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
+                        if (archeotypesCb.SelectedIndex > -1 && file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
                         {
                             string[] vals = bsCentreTb.Text.Split(',');
                             if (vals.Length == 3)
@@ -785,7 +785,7 @@ namespace mmYtypTool
                 if (((TextBox)sender).Modified)
                     if (file.AllArchetypes != null)
                     {
-                        if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
+                        if (archeotypesCb.SelectedIndex > -1 && file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
                         {
                             file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.bsRadius = Convert.ToSingle(bsRadiusTb.Text);
                         }
@@ -800,7 +800,7 @@ namespace mmYtypTool
                 if (((TextBox)sender).Modified)
                     if (file.AllArchetypes != null)
                     {
-                        if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
+                        if (archeotypesCb.SelectedIndex > -1 && file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
                         {
                             file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.hdTextureDist = Convert.ToSingle(hdTextureDistTb.Text);
                         }
@@ -815,7 +815,7 @@ namespace mmYtypTool
                 if (((TextBox)sender).Modified)
                     if (file.AllArchetypes != null)
                     {
-                        if (file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
+                        if (archeotypesCb.SelectedIndex > -1 && file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
                         {
                             file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.lodDist = Convert.ToSingle(lodDistTb.Text);
                         }
@@ -825,12 +825,16 @@ namespace mmYtypTool
         }
         #endregion
 
-        private void ClearTextboxes()
+        private void ClearTextboxes(bool clear_archeotypes = true)
         {
             try
             {
-                if (archeotypesCb.Items.Count > 0) archeotypesCb.SelectedIndex = 0;
-                archeotypesCb.Items.Clear();
+                if (clear_archeotypes)
+                {
+                    if (archeotypesCb.Items.Count > 0) archeotypesCb.SelectedIndex = 0;
+                    archeotypesCb.Items.Clear();
+                }
+
                 nameTb.Text = "";
                 assetNameTb.Text = "";
                 if (assetTypeCb.Items.Count > 0) assetTypeCb.SelectedIndex = 0;
