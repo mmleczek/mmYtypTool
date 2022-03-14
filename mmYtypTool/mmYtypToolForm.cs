@@ -1,16 +1,24 @@
 ﻿using CodeWalker.GameFiles;
 using System;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 
 namespace mmYtypTool
 {
     public partial class mmYtypToolForm : Form
     {
+        private readonly ImportSettings defaultImportSettings = new ImportSettings() {
+            AssetType = "ASSET_TYPE_DRAWABLE",
+            Flags = 32,
+            HdTextureDist = 60.0f,
+            LodDist = 60.0f
+        };
+        private ImportSettings importSettings = new ImportSettings();
+
         private RpfManager RpfMan = null;
         YtypFile file = new YtypFile();
         string OpenedFilePath = "";
@@ -155,17 +163,18 @@ namespace mmYtypTool
 
                         nameTb.Text = name_hash;
                         assetNameTb.Text = name_hash;
-                        assetTypeCb.Text = "ASSET_TYPE_DRAWABLE";
+                        assetTypeCb.Text = importSettings.AssetType;
 
                         textureDictTb.Text = fileYdr.Drawable.ShaderGroup.TextureDictionary == null ? "" : fileYdr.Drawable.Name;
                         physicsDictTb.Text = fileYdr.Drawable.Bound == null ? "" : fileYdr.Drawable.Name;
                         drawableDictTb.Text = "";
 
                         specialAttributeCb.SelectedIndex = 0;
-                        flagsTb.Text = "32";
+                        flagsTb.Text = importSettings.Flags.ToString();
+                        CommitFlagsChangeState();
 
-                        hdTextureDistTb.Text = "60.0";
-                        lodDistTb.Text = "60.0";
+                        hdTextureDistTb.Text = importSettings.HdTextureDist.ToString();
+                        lodDistTb.Text = importSettings.LodDist.ToString();
 
                         bbMinTb.Text = $"{(decimal)fileYdr.Drawable.BoundingBoxMin.X}, {(decimal)fileYdr.Drawable.BoundingBoxMin.Y}, {(decimal)fileYdr.Drawable.BoundingBoxMin.Z}";
                         bbMaxTb.Text = $"{(decimal)fileYdr.Drawable.BoundingBoxMax.X}, {(decimal)fileYdr.Drawable.BoundingBoxMax.Y}, {(decimal)fileYdr.Drawable.BoundingBoxMax.Z}";
@@ -178,18 +187,12 @@ namespace mmYtypTool
                         if(file.AllArchetypes != null && file.AllArchetypes.Length > 0 && dlg.FileNames.Length == 1)
                         {
                             if (MessageBox.Show("Would you like to replace current archetype?", "mmYtypTool", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                            {
                                 addArchetypeFromForms(true);
-                            }
                             else
-                            {
                                 addArchetypeFromForms();
-                            }
                         }
                         else
-                        {
                             addArchetypeFromForms();
-                        }
                     }
                 }
             }
@@ -471,6 +474,7 @@ namespace mmYtypTool
 
                     specialAttributeCb.SelectedIndex = Convert.ToInt32(selected._BaseArchetypeDef.specialAttribute);
                     flagsTb.Text = selected._BaseArchetypeDef.flags.ToString();
+                    CommitFlagsChangeState();
 
                     bbMinTb.Text = $"{(decimal)selected._BaseArchetypeDef.bbMin.X}, {(decimal)selected._BaseArchetypeDef.bbMin.Y}, {(decimal)selected._BaseArchetypeDef.bbMin.Z}";
                     bbMaxTb.Text = $"{(decimal)selected._BaseArchetypeDef.bbMax.X}, {(decimal)selected._BaseArchetypeDef.bbMax.Y}, {(decimal)selected._BaseArchetypeDef.bbMax.Z}";
@@ -489,6 +493,20 @@ namespace mmYtypTool
 
         #region flags
         bool __flags_user_change = false;
+
+        public void CommitFlagsChangeState()
+        {
+            __flags_user_change = true;
+            uint flags = 0;
+            uint.TryParse(flagsTb.Text, out flags);
+            for (int i = 0; i < flagsCalcList.Items.Count; i++)
+            {
+                var c = ((flags & (1u << i)) > 0);
+                flagsCalcList.SetItemCheckState(i, c ? CheckState.Checked : CheckState.Unchecked);
+            }
+            __flags_user_change = false;
+        }
+
         private void flagsTb_TextChanged(object sender, EventArgs e)
         {
             try
@@ -496,17 +514,9 @@ namespace mmYtypTool
                 if (((TextBox)sender).Modified)
                     if (file.AllArchetypes != null)
                     {
-                        if (file.AllArchetypes != null && file.AllArchetypes.Length > 0 && file.AllArchetypes[archeotypesCb.SelectedIndex] != null)
+                        if (file.AllArchetypes != null && file.AllArchetypes.Length > 0 && file.AllArchetypes[archeotypesCb.SelectedIndex] != null && !string.IsNullOrEmpty(flagsTb.Text))
                         {
-                            __flags_user_change = true;
-                            uint flags = 0;
-                            uint.TryParse(flagsTb.Text, out flags);
-                            for (int i = 0; i < flagsCalcList.Items.Count; i++)
-                            {
-                                var c = ((flags & (1u << i)) > 0);
-                                flagsCalcList.SetItemCheckState(i, c ? CheckState.Checked : CheckState.Unchecked);
-                            }
-                            __flags_user_change = false;
+                            CommitFlagsChangeState();
                             file.AllArchetypes[archeotypesCb.SelectedIndex]._BaseArchetypeDef.flags = Convert.ToUInt32(flagsTb.Text);
                         }
                     }
@@ -949,6 +959,28 @@ namespace mmYtypTool
                     }
                     catch { UpdateStatus("Error occured while loading RPFs"); }
                 });
+
+                if (File.Exists("importSettings.json"))
+                {
+                    string json = File.ReadAllText("importSettings.json");
+                    try
+                    {
+                        importSettings = JsonConvert.DeserializeObject<ImportSettings>(json);
+                    }
+                    catch
+                    {
+                        importSettings = defaultImportSettings;
+                        json = JsonConvert.SerializeObject(defaultImportSettings, Formatting.Indented);
+                        File.WriteAllText("importSettings.json", json);
+                        MessageBox.Show("There was an error with importSettings.json file. Changing import settings to default.");
+                    }
+                }
+                else
+                {
+                    importSettings = defaultImportSettings;
+                    string json = JsonConvert.SerializeObject(defaultImportSettings, Formatting.Indented);
+                    File.WriteAllText("importSettings.json", json);
+                }
             }
             catch
             {
